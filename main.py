@@ -4,7 +4,6 @@ import sys
 import pyfiglet
 from os import system
 
-# Ty to @SalladShooter for helping with the text styling!
 BOLD = "\033[1m"
 END = "\033[0m"
 
@@ -38,11 +37,12 @@ class BruteForceAttacker:
     if len(keys) == self.password_length or self.done:
       return
     for c in range(ord(self.first_char), ord(self.last_char) + 1):
-      new_keys = keys + chr(c)
-      if choice:
-        print(new_keys)
-      self.tries += 1
-      self.create_passwords(new_keys, choice)
+      if not chr(c).isupper():
+          new_keys = keys + chr(c)
+          if choice:
+            print(new_keys)
+          self.tries += 1
+          self.create_passwords(new_keys, choice)
 
 
 if __name__ == "__main__":
@@ -92,9 +92,7 @@ if __name__ == "__main__":
       print(f"Time to crack: {BOLD}0 Seconds{END}")
 
     else:
-      choice_input = input(
-          "\n(y or n) Would you like to watch the computer solve? (it takes much longer): "
-      )
+      choice_input = input("\n(y or n) Would you like to skip watching the computer solve? (it takes much longer): ")
       show_attempts = choice_input.lower() == 'y'
       attacker.password = password_input
       print("\nCracking your password...")
